@@ -1,10 +1,9 @@
 using DataAccess.Context;
-using DataAccess.Repositorios;
 using Domain;
 using IDataAccess;
 using Microsoft.EntityFrameworkCore;
 
-namespace DataAccess.Repositories;
+namespace DataAccess.Repositorios;
 
 public class CarreraRepositorio(AppDbContext context) : Repositorio<Carrera>(context), ICarreraRepositorio
 {

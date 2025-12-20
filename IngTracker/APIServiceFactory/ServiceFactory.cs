@@ -25,4 +25,9 @@ public class ServiceFactory
         serviceCollection.AddScoped<IMateriaServicio, MateriaServicio>();
         serviceCollection.AddScoped<IUsuarioMateriaServicio, UsuarioMateriaServicio>();
     }
+    
+    public static void AddConnectionString(IServiceCollection serviceCollection, string? connectionString)
+    {
+        serviceCollection.AddDbContext<DbContext, AppDbContext>(o => o.UseSqlServer(connectionString));
+    }
 }

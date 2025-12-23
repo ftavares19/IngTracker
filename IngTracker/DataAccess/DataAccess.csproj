@@ -7,11 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Migraciones\" />
-      <Folder Include="Migrations\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\Domain\Domain.csproj" />
       <ProjectReference Include="..\IDataAccess\IDataAccess.csproj" />
     </ItemGroup>

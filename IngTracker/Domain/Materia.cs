@@ -9,6 +9,5 @@ public class Materia
     public int CarreraId { get; set; }
     public Carrera Carrera { get; set; }
     public List<Materia> Previas { get; set; }
-    public List<TituloMateria> TitulosMaterias { get; set; }
     public List<UsuarioMateria> UsuariosMaterias { get; set; }
 }

@@ -30,4 +30,18 @@ public class DegreesController : Controller
         var degrees = _degreeService.GetAllDegrees();
         return Ok(new GetDegreesResponse((List<Degree>)degrees));
     }
+
+    [HttpGet("{id}")]
+    public ActionResult<DegreeDto> GetDegreeById(int id)
+    {
+        var degree = _degreeService.GetDegreeById(id);
+        return Ok(new DegreeDto(degree));
+    }
+
+    [HttpDelete("{id}")]
+    public IActionResult DeleteDegree(int id)
+    {
+        _degreeService.DeleteDegree(id);
+        return Ok();
+    }
 }

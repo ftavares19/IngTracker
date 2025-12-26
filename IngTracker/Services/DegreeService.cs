@@ -12,8 +12,7 @@ public class DegreeService : IDegreeService
     {
         DegreeRepository = degreeRepository;
     }
-
-
+    
     public Degree AddDegree(Degree degree)
     {
         return DegreeRepository.Add(degree);

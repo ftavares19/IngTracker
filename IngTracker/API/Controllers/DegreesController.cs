@@ -44,4 +44,13 @@ public class DegreesController : Controller
         _degreeService.DeleteDegree(id);
         return Ok();
     }
+
+    [HttpPut("{id}")]
+    public IActionResult ModifyDegree(ModifyDegreeRequest request, int id)
+    {
+        var degreeModified = request.ToEntity();
+        degreeModified.Id = id;
+        _degreeService.ModifyDegree(degreeModified);
+        return Ok();
+    }
 }

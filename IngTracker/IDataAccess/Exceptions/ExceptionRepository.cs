@@ -1,4 +1,4 @@
-namespace IDataAccess.Excepciones;
+namespace IDataAccess.Exceptions;
 
 public class ExceptionRepository : Exception
 {

@@ -1,5 +1,6 @@
 using API.Models.In;
 using API.Models.Out;
+using Domain;
 using IServices;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,5 +22,12 @@ public class DegreesController : Controller
         var entity = request.ToEntity();
         var degreeAdded= _degreeService.AddDegree(entity);
         return Ok(new AddDegreeResponse(degreeAdded));
+    }
+
+    [HttpGet]
+    public ActionResult<GetDegreesResponse> GetDegrees()
+    {
+        var degrees = _degreeService.GetAllDegrees();
+        return Ok(new GetDegreesResponse((List<Degree>)degrees));
     }
 }

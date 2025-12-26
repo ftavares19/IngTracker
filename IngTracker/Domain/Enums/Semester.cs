@@ -1,6 +1,6 @@
 namespace Domain;
 
-public enum Semestre
+public enum Semester
 {
     Semestre1 = 1,
     Semestre2 = 2,

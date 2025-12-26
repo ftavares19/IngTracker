@@ -20,7 +20,7 @@ namespace DataAccess.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Domain.Carrera", b =>
+            modelBuilder.Entity("Domain.Degree", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -41,7 +41,7 @@ namespace DataAccess.Migrations
                     b.ToTable("Carreras");
                 });
 
-            modelBuilder.Entity("Domain.Materia", b =>
+            modelBuilder.Entity("Domain.Course", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -60,7 +60,7 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Semestre")
+                    b.Property<int>("Semester")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -113,7 +113,7 @@ namespace DataAccess.Migrations
                     b.ToTable("TitulosMaterias");
                 });
 
-            modelBuilder.Entity("Domain.Usuario", b =>
+            modelBuilder.Entity("Domain.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -139,7 +139,7 @@ namespace DataAccess.Migrations
                     b.ToTable("Usuarios");
                 });
 
-            modelBuilder.Entity("Domain.UsuarioMateria", b =>
+            modelBuilder.Entity("Domain.Enrollment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -147,7 +147,7 @@ namespace DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Estado")
+                    b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("FechaAprobacion")
@@ -189,31 +189,31 @@ namespace DataAccess.Migrations
                     b.ToTable("MateriaPrevias");
                 });
 
-            modelBuilder.Entity("Domain.Materia", b =>
+            modelBuilder.Entity("Domain.Course", b =>
                 {
-                    b.HasOne("Domain.Carrera", "Carrera")
+                    b.HasOne("Domain.Degree", "Degree")
                         .WithMany("Materias")
                         .HasForeignKey("CarreraId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Carrera");
+                    b.Navigation("Degree");
                 });
 
             modelBuilder.Entity("Domain.Titulo", b =>
                 {
-                    b.HasOne("Domain.Carrera", "Carrera")
+                    b.HasOne("Domain.Degree", "Degree")
                         .WithMany("Titulos")
                         .HasForeignKey("CarreraId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Carrera");
+                    b.Navigation("Degree");
                 });
 
             modelBuilder.Entity("Domain.TituloMateria", b =>
                 {
-                    b.HasOne("Domain.Materia", "Materia")
+                    b.HasOne("Domain.Course", "Course")
                         .WithMany("TitulosMaterias")
                         .HasForeignKey("MateriaId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -225,64 +225,64 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Materia");
+                    b.Navigation("Course");
 
                     b.Navigation("Titulo");
                 });
 
-            modelBuilder.Entity("Domain.Usuario", b =>
+            modelBuilder.Entity("Domain.User", b =>
                 {
-                    b.HasOne("Domain.Carrera", "Carrera")
+                    b.HasOne("Domain.Degree", "Degree")
                         .WithMany()
                         .HasForeignKey("CarreraId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Carrera");
+                    b.Navigation("Degree");
                 });
 
-            modelBuilder.Entity("Domain.UsuarioMateria", b =>
+            modelBuilder.Entity("Domain.Enrollment", b =>
                 {
-                    b.HasOne("Domain.Materia", "Materia")
+                    b.HasOne("Domain.Course", "Course")
                         .WithMany("UsuariosMaterias")
                         .HasForeignKey("MateriaId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Domain.Usuario", "Usuario")
+                    b.HasOne("Domain.User", "User")
                         .WithMany("UsuariosMaterias")
                         .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Materia");
+                    b.Navigation("Course");
 
-                    b.Navigation("Usuario");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("MateriaPrevias", b =>
                 {
-                    b.HasOne("Domain.Materia", null)
+                    b.HasOne("Domain.Course", null)
                         .WithMany()
                         .HasForeignKey("MateriaId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Domain.Materia", null)
+                    b.HasOne("Domain.Course", null)
                         .WithMany()
                         .HasForeignKey("PreviaId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Domain.Carrera", b =>
+            modelBuilder.Entity("Domain.Degree", b =>
                 {
                     b.Navigation("Materias");
 
                     b.Navigation("Titulos");
                 });
 
-            modelBuilder.Entity("Domain.Materia", b =>
+            modelBuilder.Entity("Domain.Course", b =>
                 {
                     b.Navigation("TitulosMaterias");
 
@@ -294,7 +294,7 @@ namespace DataAccess.Migrations
                     b.Navigation("TitulosMaterias");
                 });
 
-            modelBuilder.Entity("Domain.Usuario", b =>
+            modelBuilder.Entity("Domain.User", b =>
                 {
                     b.Navigation("UsuariosMaterias");
                 });

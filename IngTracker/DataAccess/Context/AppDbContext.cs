@@ -5,11 +5,10 @@ namespace DataAccess.Context;
 
 public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
-    public DbSet<Usuario> Usuarios { get; set; }
-    public DbSet<Carrera> Carreras { get; set; }
-    public DbSet<Materia> Materias { get; set; }
-    public DbSet<Titulo> Titulos { get; set; }
-    public DbSet<UsuarioMateria> UsuariosMaterias { get; set; }
+    public DbSet<User> Usuarios { get; set; }
+    public DbSet<Degree> Carreras { get; set; }
+    public DbSet<Course> Materias { get; set; }
+    public DbSet<Enrollment> UsuariosMaterias { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

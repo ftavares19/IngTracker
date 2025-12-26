@@ -1,5 +1,5 @@
 ﻿using DataAccess.Context;
-using DataAccess.Repositorios;
+using DataAccess.Repositories;
 using IDataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,8 +10,8 @@ public class ServiceFactory
 {
     public static void AddServices(IServiceCollection serviceCollection)
     {
-        // Repositorios
-        serviceCollection.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
+        // Repositories
+        serviceCollection.AddScoped<IUserRepository, UserRepository>();
     }
     
     public static void AddConnectionString(IServiceCollection serviceCollection, string? connectionString)

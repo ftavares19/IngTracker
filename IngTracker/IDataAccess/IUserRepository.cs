@@ -2,6 +2,6 @@ using Domain;
 
 namespace IDataAccess;
 
-public interface IUsuarioRepositorio
+public interface IUserRepository
 {
 }

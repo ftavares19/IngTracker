@@ -1,6 +1,6 @@
 namespace Domain;
 
-public enum Estado
+public enum Status
 {
     Pendiente,
     Cursando,

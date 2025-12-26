@@ -1,8 +1,10 @@
 ﻿using DataAccess.Context;
 using DataAccess.Repositories;
 using IDataAccess;
+using IServices;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Services;
 
 namespace APIServiceFactory;
 
@@ -12,6 +14,10 @@ public class ServiceFactory
     {
         // Repositories
         serviceCollection.AddScoped<IUserRepository, UserRepository>();
+        serviceCollection.AddScoped<IDegreeRepository, DegreeRepository>();
+        
+        // Services
+        serviceCollection.AddScoped<IDegreeService, DegreeService>();
     }
     
     public static void AddConnectionString(IServiceCollection serviceCollection, string? connectionString)

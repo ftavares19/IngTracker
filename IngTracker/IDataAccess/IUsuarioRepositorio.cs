@@ -2,9 +2,6 @@ using Domain;
 
 namespace IDataAccess;
 
-public interface IUsuarioRepositorio : IRepositorio<Usuario>
+public interface IUsuarioRepositorio
 {
-    Usuario? ObtenerPorEmail(string email);
-    Usuario? ObtenerConCarrera(int id);
-    Usuario? ObtenerConMaterias(int id);
 }

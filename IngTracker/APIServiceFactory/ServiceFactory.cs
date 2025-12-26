@@ -12,10 +12,6 @@ public class ServiceFactory
     {
         // Repositorios
         serviceCollection.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
-        serviceCollection.AddScoped<ICarreraRepositorio, CarreraRepositorio>();
-        serviceCollection.AddScoped<IMateriaRepositorio, MateriaRepositorio>();
-        serviceCollection.AddScoped<ITituloRepositorio, TituloRepositorio>();
-        serviceCollection.AddScoped<IUsuarioMateriaRepositorio, UsuarioMateriaRepositorio>();
     }
     
     public static void AddConnectionString(IServiceCollection serviceCollection, string? connectionString)

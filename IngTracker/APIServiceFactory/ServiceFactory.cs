@@ -13,7 +13,6 @@ public class ServiceFactory
     public static void AddServices(IServiceCollection serviceCollection)
     {
         // Repositories
-        serviceCollection.AddScoped<IUserRepository, UserRepository>();
         serviceCollection.AddScoped<IDegreeRepository, DegreeRepository>();
         
         // Services

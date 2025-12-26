@@ -54,33 +54,11 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DegreeId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Users_Degrees_DegreeId",
-                        column: x => x.DegreeId,
-                        principalTable: "Degrees",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Enrollments",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false),
                     CourseId = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
                     Grade = table.Column<int>(type: "int", nullable: true),
@@ -94,12 +72,6 @@ namespace DataAccess.Migrations
                         name: "FK_Enrollments_Courses_CourseId",
                         column: x => x.CourseId,
                         principalTable: "Courses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Enrollments_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -118,16 +90,6 @@ namespace DataAccess.Migrations
                 name: "IX_Enrollments_CourseId",
                 table: "Enrollments",
                 column: "CourseId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Enrollments_UserId",
-                table: "Enrollments",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Users_DegreeId",
-                table: "Users",
-                column: "DegreeId");
         }
 
         /// <inheritdoc />
@@ -138,9 +100,6 @@ namespace DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "Courses");
-
-            migrationBuilder.DropTable(
-                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Degrees");

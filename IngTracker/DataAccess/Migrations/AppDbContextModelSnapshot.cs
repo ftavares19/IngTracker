@@ -100,42 +100,11 @@ namespace DataAccess.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CourseId");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("Enrollments");
-                });
-
-            modelBuilder.Entity("Domain.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("DegreeId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DegreeId");
-
-                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Domain.Course", b =>
@@ -161,26 +130,7 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.User", "User")
-                        .WithMany("Enrollments")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Course");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Domain.User", b =>
-                {
-                    b.HasOne("Domain.Degree", "Degree")
-                        .WithMany()
-                        .HasForeignKey("DegreeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Degree");
                 });
 
             modelBuilder.Entity("Domain.Course", b =>
@@ -193,11 +143,6 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Domain.Degree", b =>
                 {
                     b.Navigation("Courses");
-                });
-
-            modelBuilder.Entity("Domain.User", b =>
-                {
-                    b.Navigation("Enrollments");
                 });
 #pragma warning restore 612, 618
         }

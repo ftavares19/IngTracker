@@ -62,7 +62,6 @@ namespace DataAccess.Migrations
                     CourseId = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
                     Grade = table.Column<int>(type: "int", nullable: true),
-                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ApprovalDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251226024506_Initial")]
+    [Migration("20251227001827_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -96,9 +96,6 @@ namespace DataAccess.Migrations
 
                     b.Property<int?>("Grade")
                         .HasColumnType("int");
-
-                    b.Property<DateTime?>("StartDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");

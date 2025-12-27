@@ -14,9 +14,11 @@ public class ServiceFactory
     {
         // Repositories
         serviceCollection.AddScoped<IDegreeRepository, DegreeRepository>();
+        serviceCollection.AddScoped<ICourseRepository, CourseRepository>();
         
         // Services
         serviceCollection.AddScoped<IDegreeService, DegreeService>();
+        serviceCollection.AddScoped<ICourseService, CourseService>();
     }
     
     public static void AddConnectionString(IServiceCollection serviceCollection, string? connectionString)

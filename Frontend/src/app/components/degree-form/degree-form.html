@@ -1,0 +1,48 @@
+<div class="form-container">
+  <div class="form-header">
+    <h1>{{ isEditMode ? 'Editar Carrera' : 'Nueva Carrera' }}</h1>
+  </div>
+
+  <div *ngIf="loading" class="loading">Cargando...</div>
+  
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <form [formGroup]="degreeForm" (ngSubmit)="onSubmit()" *ngIf="!loading">
+    <div class="form-group">
+      <label for="name">Nombre *</label>
+      <input 
+        type="text" 
+        id="name" 
+        formControlName="name"
+        class="form-control"
+        [class.invalid]="degreeForm.get('name')?.invalid && degreeForm.get('name')?.touched"
+      />
+      <div class="error-message" *ngIf="degreeForm.get('name')?.invalid && degreeForm.get('name')?.touched">
+        <span *ngIf="degreeForm.get('name')?.errors?.['required']">El nombre es requerido</span>
+        <span *ngIf="degreeForm.get('name')?.errors?.['minlength']">El nombre debe tener al menos 3 caracteres</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Descripción *</label>
+      <textarea 
+        id="description" 
+        formControlName="description"
+        rows="5"
+        class="form-control"
+        [class.invalid]="degreeForm.get('description')?.invalid && degreeForm.get('description')?.touched"
+      ></textarea>
+      <div class="error-message" *ngIf="degreeForm.get('description')?.invalid && degreeForm.get('description')?.touched">
+        <span *ngIf="degreeForm.get('description')?.errors?.['required']">La descripción es requerida</span>
+        <span *ngIf="degreeForm.get('description')?.errors?.['minlength']">La descripción debe tener al menos 10 caracteres</span>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="btn-secondary" (click)="cancel()">Cancelar</button>
+      <button type="submit" class="btn-primary" [disabled]="degreeForm.invalid || loading">
+        {{ isEditMode ? 'Actualizar' : 'Crear' }}
+      </button>
+    </div>
+  </form>
+</div>

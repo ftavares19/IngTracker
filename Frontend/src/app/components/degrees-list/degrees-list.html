@@ -1,0 +1,27 @@
+<div class="degrees-container">
+  <div class="header">
+    <h1>Carreras</h1>
+    <button class="btn-primary" (click)="addDegree()">+ Nueva Carrera</button>
+  </div>
+
+  <div *ngIf="loading" class="loading">Cargando...</div>
+  
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div *ngIf="!loading && degrees.length === 0" class="empty">
+    No hay carreras registradas
+  </div>
+
+  <div class="degrees-grid" *ngIf="!loading && degrees.length > 0">
+    <div class="degree-card" *ngFor="let degree of degrees">
+      <div class="degree-header">
+        <h3>{{ degree.name }}</h3>
+      </div>
+      <p class="degree-description">{{ degree.description }}</p>
+      <div class="degree-actions">
+        <button class="btn-edit" (click)="editDegree(degree.id!)">Editar</button>
+        <button class="btn-delete" (click)="deleteDegree(degree.id!)">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>

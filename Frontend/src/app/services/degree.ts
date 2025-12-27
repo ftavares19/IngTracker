@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Degree, AddDegreeRequest, ModifyDegreeRequest } from '../models/degree.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DegreeService {
-  private apiUrl = 'http://localhost:5000/api/degrees';
+  private apiUrl = `${environment.apiUrl}/degrees`;
 
   constructor(private http: HttpClient) {}
 

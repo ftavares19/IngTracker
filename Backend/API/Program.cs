@@ -6,6 +6,16 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
 ServiceFactory.AddServices(builder.Services);
 ServiceFactory.AddConnectionString(builder.Services, builder.Configuration.GetConnectionString("DefaultConnection"));
 
@@ -17,7 +27,7 @@ if(app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+app.UseCors("AllowFrontend");
 app.UseAuthorization();
 app.MapControllers();
 

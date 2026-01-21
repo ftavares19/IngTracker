@@ -22,6 +22,21 @@ namespace DataAccess.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("CoursePrerequisites", b =>
+                {
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PrerequisiteId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CourseId", "PrerequisiteId");
+
+                    b.HasIndex("PrerequisiteId");
+
+                    b.ToTable("CoursePrerequisites", (string)null);
+                });
+
             modelBuilder.Entity("Domain.Course", b =>
                 {
                     b.Property<int>("Id")
@@ -34,9 +49,6 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("CourseId")
-                        .HasColumnType("int");
-
                     b.Property<int>("DegreeId")
                         .HasColumnType("int");
 
@@ -48,8 +60,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CourseId");
 
                     b.HasIndex("DegreeId");
 
@@ -104,12 +114,23 @@ namespace DataAccess.Migrations
                     b.ToTable("Enrollments");
                 });
 
-            modelBuilder.Entity("Domain.Course", b =>
+            modelBuilder.Entity("CoursePrerequisites", b =>
                 {
                     b.HasOne("Domain.Course", null)
-                        .WithMany("Prerequisites")
-                        .HasForeignKey("CourseId");
+                        .WithMany()
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
+                    b.HasOne("Domain.Course", null)
+                        .WithMany()
+                        .HasForeignKey("PrerequisiteId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Course", b =>
+                {
                     b.HasOne("Domain.Degree", "Degree")
                         .WithMany("Courses")
                         .HasForeignKey("DegreeId")
@@ -133,8 +154,6 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Domain.Course", b =>
                 {
                     b.Navigation("Enrollments");
-
-                    b.Navigation("Prerequisites");
                 });
 
             modelBuilder.Entity("Domain.Degree", b =>

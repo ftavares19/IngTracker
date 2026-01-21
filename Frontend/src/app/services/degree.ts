@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Degree, AddDegreeRequest, ModifyDegreeRequest } from '../models/degree.model';
 import { environment } from '../../environments/environment';
 
@@ -13,7 +14,9 @@ export class DegreeService {
   constructor(private http: HttpClient) {}
 
   getAllDegrees(): Observable<Degree[]> {
-    return this.http.get<Degree[]>(this.apiUrl);
+    return this.http.get<{degrees: Degree[]}>(this.apiUrl).pipe(
+      map(response => response.degrees)
+    );
   }
 
   getDegreeById(id: number): Observable<Degree> {

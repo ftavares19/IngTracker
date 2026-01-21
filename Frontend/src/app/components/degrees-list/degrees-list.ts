@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { DegreeService } from '../../services/degree';
@@ -17,7 +17,8 @@ export class DegreesList implements OnInit {
 
   constructor(
     private degreeService: DegreeService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -31,11 +32,13 @@ export class DegreesList implements OnInit {
       next: (data) => {
         this.degrees = data;
         this.loading = false;
+        this.cdr.detectChanges();
       },
       error: (err) => {
         this.error = 'Error al cargar las carreras';
         this.loading = false;
         console.error(err);
+        this.cdr.detectChanges();
       }
     });
   }

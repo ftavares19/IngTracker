@@ -1,0 +1,99 @@
+<div class="prerequisites-container">
+  <div class="page-header">
+    <button class="btn-back" (click)="goBack()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <line x1="19" y1="12" x2="5" y2="12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <polyline points="12 19 5 12 12 5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Volver
+    </button>
+    <div class="header-info" *ngIf="course">
+      <h1>Prerrequisitos de {{ course.name }}</h1>
+      <p class="subtitle">{{ course.code }} - {{ getSemesterName(course.semester) }}</p>
+    </div>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <circle cx="12" cy="12" r="10" stroke-width="2"/>
+      <line x1="12" y1="8" x2="12" y2="12" stroke-width="2" stroke-linecap="round"/>
+      <line x1="12" y1="16" x2="12.01" y2="16" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    {{ error }}
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    <div class="spinner"></div>
+    <p>Cargando...</p>
+  </div>
+
+  <div *ngIf="!loading" class="content-grid">
+    <div class="card">
+      <div class="card-header">
+        <h2>Prerrequisitos Actuales</h2>
+        <span class="badge">{{ prerequisites.length }}</span>
+      </div>
+
+      <div *ngIf="prerequisites.length === 0" class="empty-state-small">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <circle cx="12" cy="12" r="10" stroke-width="2"/>
+          <line x1="12" y1="16" x2="12" y2="12" stroke-width="2" stroke-linecap="round"/>
+          <line x1="12" y1="8" x2="12.01" y2="8" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <p>Esta materia no tiene prerrequisitos</p>
+      </div>
+
+      <div class="courses-list" *ngIf="prerequisites.length > 0">
+        <div class="course-item" *ngFor="let prereq of prerequisites">
+          <div class="course-item-info">
+            <span class="course-badge">{{ prereq.code }}</span>
+            <div>
+              <h3>{{ prereq.name }}</h3>
+              <span class="course-semester">{{ getSemesterName(prereq.semester) }}</span>
+            </div>
+          </div>
+          <button class="btn-remove" (click)="removePrerequisite(prereq.id!)" title="Eliminar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <line x1="18" y1="6" x2="6" y2="18" stroke-width="2" stroke-linecap="round"/>
+              <line x1="6" y1="6" x2="18" y2="18" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h2>Materias Disponibles</h2>
+        <span class="badge">{{ availableCourses.length }}</span>
+      </div>
+
+      <div *ngIf="availableCourses.length === 0" class="empty-state-small">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <circle cx="12" cy="12" r="10" stroke-width="2"/>
+          <line x1="15" y1="9" x2="9" y2="15" stroke-width="2" stroke-linecap="round"/>
+          <line x1="9" y1="9" x2="15" y2="15" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <p>No hay materias disponibles para agregar</p>
+      </div>
+
+      <div class="courses-list" *ngIf="availableCourses.length > 0">
+        <div class="course-item" *ngFor="let course of availableCourses">
+          <div class="course-item-info">
+            <span class="course-badge secondary">{{ course.code }}</span>
+            <div>
+              <h3>{{ course.name }}</h3>
+              <span class="course-semester">{{ getSemesterName(course.semester) }}</span>
+            </div>
+          </div>
+          <button class="btn-add" (click)="addPrerequisite(course.id!)" title="Agregar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <line x1="12" y1="5" x2="12" y2="19" stroke-width="2" stroke-linecap="round"/>
+              <line x1="5" y1="12" x2="19" y2="12" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

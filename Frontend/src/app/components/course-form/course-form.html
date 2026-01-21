@@ -1,0 +1,93 @@
+<div class="form-container">
+  <div class="form-card">
+    <div class="form-header">
+      <div>
+        <h1>{{ isEditMode ? 'Editar Materia' : 'Nueva Materia' }}</h1>
+        <p class="subtitle">{{ isEditMode ? 'Modifica los datos de la materia' : 'Completa los datos para crear una nueva materia' }}</p>
+      </div>
+    </div>
+
+    <div *ngIf="error" class="error-message">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <circle cx="12" cy="12" r="10" stroke-width="2"/>
+        <line x1="12" y1="8" x2="12" y2="12" stroke-width="2" stroke-linecap="round"/>
+        <line x1="12" y1="16" x2="12.01" y2="16" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      {{ error }}
+    </div>
+
+    <form (ngSubmit)="onSubmit()" class="form">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="code">Código de la Materia *</label>
+          <input
+            type="text"
+            id="code"
+            [(ngModel)]="code"
+            name="code"
+            placeholder="Ej: MAT101"
+            required
+            [disabled]="loading"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="semester">Semestre *</label>
+          <select
+            id="semester"
+            [(ngModel)]="semester"
+            name="semester"
+            required
+            [disabled]="loading"
+          >
+            <option *ngFor="let sem of semesters" [value]="sem.value">
+              {{ sem.label }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="name">Nombre de la Materia *</label>
+        <input
+          type="text"
+          id="name"
+          [(ngModel)]="name"
+          name="name"
+          placeholder="Ej: Matemáticas I"
+          required
+          [disabled]="loading"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="degreeId">Carrera *</label>
+        <select
+          id="degreeId"
+          [(ngModel)]="degreeId"
+          name="degreeId"
+          required
+          [disabled]="loading"
+        >
+          <option [value]="null" disabled>Selecciona una carrera</option>
+          <option *ngFor="let degree of degrees" [value]="degree.id">
+            {{ degree.name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn-secondary" (click)="cancel()" [disabled]="loading">
+          Cancelar
+        </button>
+        <button type="submit" class="btn-primary" [disabled]="loading">
+          <span *ngIf="!loading">{{ isEditMode ? 'Actualizar' : 'Crear' }} Materia</span>
+          <span *ngIf="loading" class="loading-text">
+            <div class="spinner-small"></div>
+            Procesando...
+          </span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

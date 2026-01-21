@@ -11,5 +11,17 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Course>()
+            .HasMany(c => c.Prerequisites)
+            .WithMany()
+            .UsingEntity<Dictionary<string, object>>(
+                "CoursePrerequisites",
+                j => j.HasOne<Course>().WithMany().HasForeignKey("PrerequisiteId").OnDelete(DeleteBehavior.Restrict),
+                j => j.HasOne<Course>().WithMany().HasForeignKey("CourseId").OnDelete(DeleteBehavior.Cascade),
+                j =>
+                {
+                    j.HasKey("CourseId", "PrerequisiteId");
+                    j.ToTable("CoursePrerequisites");
+                });
     }
 }

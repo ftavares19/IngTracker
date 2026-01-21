@@ -1,15 +1,42 @@
 <div class="degrees-container">
   <div class="header">
-    <h1>Carreras</h1>
-    <button class="btn-primary" (click)="addDegree()">+ Nueva Carrera</button>
+    <div class="header-content">
+      <div>
+        <h1>Carreras</h1>
+        <p class="subtitle">Gestiona las carreras universitarias</p>
+      </div>
+      <button class="btn-primary" (click)="addDegree()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <line x1="12" y1="5" x2="12" y2="19" stroke-width="2" stroke-linecap="round"/>
+          <line x1="5" y1="12" x2="19" y2="12" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        Nueva Carrera
+      </button>
+    </div>
   </div>
 
-  <div *ngIf="loading" class="loading">Cargando...</div>
+  <div *ngIf="loading" class="loading">
+    <div class="spinner"></div>
+    <p>Cargando carreras...</p>
+  </div>
   
-  <div *ngIf="error" class="error">{{ error }}</div>
+  <div *ngIf="error" class="error">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <circle cx="12" cy="12" r="10" stroke-width="2"/>
+      <line x1="12" y1="8" x2="12" y2="12" stroke-width="2" stroke-linecap="round"/>
+      <line x1="12" y1="16" x2="12.01" y2="16" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    {{ error }}
+  </div>
 
   <div *ngIf="!loading && degrees.length === 0" class="empty">
-    No hay carreras registradas
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <h3>No hay carreras registradas</h3>
+    <p>Comienza agregando tu primera carrera</p>
+    <button class="btn-primary" (click)="addDegree()">Agregar Carrera</button>
   </div>
 
   <div class="degrees-grid" *ngIf="!loading && degrees.length > 0">

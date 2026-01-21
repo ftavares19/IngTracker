@@ -9,4 +9,8 @@ public interface IEnrollmentService
     Enrollment GetEnrollmentById(int id);
     void DeleteEnrollment(int id);
     void ModifyEnrollment(Enrollment enrollmentModified);
+    bool CanEnrollCourse(int courseId);
+    IEnumerable<Course> GetAvailableCourses(int degreeId);
+    IEnumerable<Course> GetAvailableCoursesForSemester(int degreeId, Semester semester);
+    bool ArePrerequisitesMet(int courseId);
 }

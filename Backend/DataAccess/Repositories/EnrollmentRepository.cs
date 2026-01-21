@@ -2,6 +2,7 @@ using DataAccess.Context;
 using Domain;
 using IDataAccess;
 using IDataAccess.Exceptions;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Repositories;
 
@@ -22,6 +23,13 @@ public class EnrollmentRepository(AppDbContext context) : IEnrollmentRepository
     public IEnumerable<Enrollment> GetAll()
     {
         return context.Enrollments.ToList();
+    }
+
+    public IEnumerable<Enrollment> GetByCourseId(int courseId)
+    {
+        return context.Enrollments
+            .Where(e => e.CourseId == courseId)
+            .ToList();
     }
 
     public void Delete(int id)

@@ -2,6 +2,7 @@ using DataAccess.Context;
 using Domain;
 using IDataAccess;
 using IDataAccess.Exceptions;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Repositories;
 
@@ -25,10 +26,31 @@ public class CourseRepository : ICourseRepository
     {
         return _context.Courses.Find(id);
     }
+
+    public Course GetWithPrerequisites(int id)
+    {
+        return _context.Courses
+            .Include(c => c.Prerequisites)
+            .FirstOrDefault(c => c.Id == id);
+    }
     
     public IEnumerable<Course> GetAll()
     {
         return _context.Courses.ToList();
+    }
+
+    public IEnumerable<Course> GetByDegree(int degreeId)
+    {
+        return _context.Courses
+            .Where(c => c.DegreeId == degreeId)
+            .ToList();
+    }
+
+    public IEnumerable<Course> GetBySemester(int degreeId, Semester semester)
+    {
+        return _context.Courses
+            .Where(c => c.DegreeId == degreeId && c.Semester == semester)
+            .ToList();
     }
 
     public void Delete(int id)
